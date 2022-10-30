@@ -1,0 +1,37 @@
+name: Docker Scan
+
+on:
+  workflow_call:
+    inputs:
+      registry-url:
+        required: true
+        type: string
+        default: "ghcr.io"
+      image-name:
+        required: true
+        type: string
+        default: ${{ github.repository }}
+      image-tag:
+        required: true
+        type: string
+        default: "main"
+    
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  scan:
+    name: Docker Scheduled Scan
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Run Aqua Security Trivy
+      uses: aquasecurity/trivy-action@0.7.1
+      with:
+        image-ref: '${{ inputs.registry-url }}/${{ inputs.image-name }}:${{ inputs.image-tag }}'
+        format: 'table'
+        exit-code: "1"
+        ignore-unfixed: true
+        vuln-type: 'os,library'
+        severity: 'CRITICAL,HIGH,MEDIUM,LOW'

@@ -1,0 +1,15 @@
+name: Repo Checkout
+
+on:
+  workflow_call:
+    
+jobs:
+  checkout:
+    runs-on: ubuntu-20.04
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3.1.0

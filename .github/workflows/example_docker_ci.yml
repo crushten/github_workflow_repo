@@ -1,0 +1,22 @@
+name: Example Docker CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    name: Docker Lint
+    uses:  ./.github/workflows/docker_lint.yml
+  
+  build:
+    name: Docker Build
+    needs: lint
+    uses: ./.github/workflows/docker_build.yml
+
+  scan:
+    name: Docker Scan
+    needs: build
+    uses: ./.github/workflows/docker_scan.yml
