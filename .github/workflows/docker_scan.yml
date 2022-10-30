@@ -4,15 +4,15 @@ on:
   workflow_call:
     inputs:
       registry-url:
-        required: true
+        required: false
         type: string
         default: "ghcr.io"
       image-name:
-        required: true
+        required: false
         type: string
         default: ${{ github.repository }}
       image-tag:
-        required: true
+        required: false
         type: string
         default: "main"
     
