@@ -1,0 +1,57 @@
+name: Terraform Scan
+
+# The scheduled workflow runs every day at 03:00 UTC time.
+on:
+  workflow_call:
+    inputs:
+      terraform_directory:
+        required: false
+        type: string
+        default: "."
+      terraform_sarif_file:
+        required: false
+        type: string
+        default: "tfsec.sarif"
+
+jobs:
+  terraform-scan:
+    name: Terraform Scan
+    runs-on: ubuntu-20.04
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v3.1.0
+
+      - name: Run tfsec
+        uses: aquasecurity/tfsec-sarif-action@v0.1.4
+        with:
+         sarif_file: ${{ inputs.terraform_sarif_file }}
+         tfsec_version: v1.28.1
+         working_directory: ${{ inputs.terraform_directory }}
+
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          # Path to SARIF file relative to the root of the repository
+          sarif_file: tfsec.sarif    
+
+      - name: Run Checkov
+        uses: bridgecrewio/checkov-action@v12.1817.0
+        with:
+         directory: ${{ inputs.terraform_directory }}
+         download_external_modules: true
+         soft_fail: true
+
+      - name: Run Terrascan
+        uses: tenable/terrascan-action@v1.4.1
+        with:
+         iac_type: 'terraform'
+         iac_version: 'v14'
+         iac_dir: ${{ inputs.terraform_directory }}
+         only_warn: true
+         config_path: ${{ inputs.terraform_directory }}/terrascan.config.toml
+         #policy_type: 'aws'terraform-scan:
