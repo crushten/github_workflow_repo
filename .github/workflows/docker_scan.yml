@@ -18,7 +18,7 @@ on:
 
 jobs:
   scan:
-    name: Docker Scheduled Scan
+    name: Docker Scan
     runs-on: ubuntu-20.04
     steps:
     - name: Run Aqua Security Trivy

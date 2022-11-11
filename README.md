@@ -8,3 +8,4 @@ These are the current supported workflows that this repo covers:
 
 - Docker
 - Terraform
+- Golang Applications

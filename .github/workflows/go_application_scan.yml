@@ -1,0 +1,36 @@
+name: Golang Scan
+
+on:
+  workflow_call:
+
+jobs:
+  audit:
+    name: Golang Scan
+    runs-on: ubuntu-20.04
+    env:
+      GO111MODULE: on
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3.1.0
+
+      - name: Setup Go version
+        uses: actions/setup-go@v3.3.1
+        with:
+          go-version-file: 'go.mod'
+      - run: go version
+
+      - name: Install govulncheck
+        run: go install golang.org/x/vuln/cmd/govulncheck@latest
+
+      - name: Run govulncheck
+        run: govulncheck ./...
+
+      - name: Create Go dep list
+        run: go list -json -m all > go.list
+
+      - name: Scan application with Nancy
+        uses: sonatype-nexus-community/nancy-github-action@v1.0.2
+        with:
+          nancyVersion: "v1.0.42"
+          goListFile: go.list

@@ -1,0 +1,31 @@
+name: Golang Test
+
+on:
+  workflow_call:
+
+jobs:
+  test:
+    name: Golang Test
+    runs-on: ubuntu-20.04
+    steps:
+
+       - name: Checkout 
+         uses: actions/checkout@v3.1.0
+
+       - name: Setup Go version
+         uses: actions/setup-go@v3.3.1
+         with:
+          go-version-file: 'go.mod'
+       - run: go version
+
+       - name: Verify dependencies
+         run: go mod verify
+
+       - name: Run Go vet
+         run: go vet
+
+       - name: Run Go test
+         run: go test -v
+
+       - name: Check coverage
+         run: go test -cover
