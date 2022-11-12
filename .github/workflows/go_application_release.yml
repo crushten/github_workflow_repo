@@ -31,7 +31,7 @@ jobs:
         run: git fetch --force --tags
 
       - name: Setup Go version
-        uses: setup-go@v3.3.1
+        uses: actions/setup-go@v3.3.1
         with:
           go-version-file: 'go.mod'
       - run: go version
