@@ -34,10 +34,10 @@ jobs:
          working_directory: ${{ inputs.terraform_directory }}
 
       - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v1
+        uses: github/codeql-action/upload-sarif@v2.1.31
         with:
           # Path to SARIF file relative to the root of the repository
-          sarif_file: tfsec.sarif    
+          sarif_file: ${{ inputs.terraform_sarif_file }}  
 
       - name: Run Checkov
         uses: bridgecrewio/checkov-action@v12.1817.0
