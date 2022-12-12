@@ -31,10 +31,7 @@ jobs:
         run: git fetch --force --tags
 
       - name: Setup Go version
-        uses: actions/setup-go@v3.3.1
-        with:
-          go-version-file: 'go.mod'
-      - run: go version
+        uses: crushten/github_workflow_repo/.github/workflows/go_application_setup.yml@main
 
       - name: Install syft
         run: curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin v0.54.0
