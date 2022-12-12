@@ -14,6 +14,7 @@ jobs:
 
   test:
     name: Golang Test
+    needs: [checkout, setupgo]
     runs-on: ubuntu-20.04
     steps:
 

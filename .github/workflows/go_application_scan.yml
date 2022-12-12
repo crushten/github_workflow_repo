@@ -14,6 +14,7 @@ jobs:
 
   audit:
     name: Golang Scan
+    needs: [checkout, setupgo]
     runs-on: ubuntu-20.04
     env:
       GO111MODULE: on
