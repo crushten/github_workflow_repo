@@ -2,6 +2,11 @@ name: Repo Checkout
 
 on:
   workflow_call:
+    inputs:
+      fetchdepth:
+        required: false
+        type: number
+        default: 1
     
 jobs:
   checkout:
@@ -13,3 +18,5 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3.1.0
+        with:
+          fetch-depth: ${{ fetchdepth }}

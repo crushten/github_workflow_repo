@@ -17,21 +17,23 @@ on:
         default: "."
 
 jobs:
+  checkout:
+    name: Checkout
+    uses: ./.github/workflows/checkout.yml
+    with:
+      fetchdepth: 0
+
+  setupgo: 
+    name: Setup Go version
+    uses: ./.github/workflows/go_application_setup.yml
+
   release:
     name: Release
     runs-on: ubuntu-20.04
     steps:
 
-      - name: Checkout
-        uses: actions/checkout@v3.1.0
-        with:
-          fetch-depth: 0
-
       - name: Fetch all tags
         run: git fetch --force --tags
-
-      - name: Setup Go version
-        uses: crushten/github_workflow_repo/.github/workflows/go_application_setup.yml@main
 
       - name: Install syft
         run: curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin v0.54.0
