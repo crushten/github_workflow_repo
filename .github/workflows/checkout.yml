@@ -19,4 +19,4 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3.1.0
         with:
-          fetch-depth: ${{ fetchdepth }}
+          fetch-depth: ${{ inputs.fetchdepth }}

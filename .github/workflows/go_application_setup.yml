@@ -17,5 +17,5 @@ jobs:
       - name: Setup Go version
         uses: actions/setup-go@v3.3.1
         with:
-          go-version: ${{ golang_version }}
+          go-version: ${{ inputs.golang_version }}
       - run: go version
