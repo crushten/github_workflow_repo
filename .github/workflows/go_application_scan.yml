@@ -4,21 +4,18 @@ on:
   workflow_call:
 
 jobs:
-  checkout:
-    name: Checkout
-    uses: ./.github/workflows/checkout.yml
-
-  setupgo: 
-    name: Setup Go version
-    uses: ./.github/workflows/go_application_setup.yml
-
   audit:
     name: Golang Scan
-    needs: [checkout, setupgo]
     runs-on: ubuntu-20.04
     env:
       GO111MODULE: on
     steps:
+
+      - name: Use local action checkout
+        uses: ./.github/actions/checkout.yml
+
+      - name: Use local action Golang setup
+        uses: ./.github/actions/go_application_setup.yml
 
       - name: Install govulncheck
         run: go install golang.org/x/vuln/cmd/govulncheck@latest

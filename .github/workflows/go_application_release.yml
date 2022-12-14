@@ -17,21 +17,18 @@ on:
         default: "."
 
 jobs:
-  checkout:
-    name: Checkout
-    uses: ./.github/workflows/checkout.yml
-    with:
-      fetchdepth: 0
-
-  setupgo: 
-    name: Setup Go version
-    uses: ./.github/workflows/go_application_setup.yml
-
   release:
     name: Release
-    needs: [checkout, setupgo]
     runs-on: ubuntu-20.04
     steps:
+
+      - name: Use local action checkout
+        uses: ./.github/actions/checkout.yml
+        with:
+         fetchdepth: 0
+
+      - name: Use local action Golang setup
+        uses: ./.github/actions/go_application_setup.yml
 
       - name: Fetch all tags
         run: git fetch --force --tags

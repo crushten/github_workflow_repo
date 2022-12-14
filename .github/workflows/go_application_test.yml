@@ -4,19 +4,16 @@ on:
   workflow_call:
 
 jobs:
-  checkout:
-    name: Checkout
-    uses: ./.github/workflows/checkout.yml
-
-  setupgo: 
-    name: Setup Go version
-    uses: ./.github/workflows/go_application_setup.yml
-
   test:
     name: Golang Test
-    needs: [checkout, setupgo]
     runs-on: ubuntu-20.04
     steps:
+
+       - name: Use local action checkout
+         uses: ./.github/actions/checkout.yml
+
+       - name: Use local action Golang setup
+         uses: ./.github/actions/go_application_setup.yml
 
        - name: Verify dependencies
          run: go mod verify
