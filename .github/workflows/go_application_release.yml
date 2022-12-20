@@ -23,12 +23,12 @@ jobs:
     steps:
 
       - name: Use local action checkout
-        uses: ./.github/actions/checkout.yml
+        uses: ./.github/actions/checkout
         with:
          fetchdepth: 0
 
       - name: Use local action Golang setup
-        uses: ./.github/actions/go_application_setup.yml
+        uses: ./.github/actions/go_app_setup
 
       - name: Fetch all tags
         run: git fetch --force --tags

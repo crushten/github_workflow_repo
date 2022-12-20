@@ -12,10 +12,10 @@ jobs:
     steps:
 
       - name: Use local action checkout
-        uses: ./.github/actions/checkout.yml
+        uses: ./.github/actions/checkout
 
       - name: Use local action Golang setup
-        uses: ./.github/actions/go_application_setup.yml
+        uses: ./.github/actions/go_app_setup
 
       - name: Install govulncheck
         run: go install golang.org/x/vuln/cmd/govulncheck@latest
