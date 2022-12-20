@@ -4,15 +4,22 @@ description: "Setups up Golang versions"
 inputs:
   golang_version:
     required: false
-    type: string
+    description: "Golang version to use"
     default: "1.18.9"
 
 
 runs:
   using: "composite"
   steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Setup Go version
         uses: actions/setup-go@v3.3.1
         with:
           go-version: ${{ inputs.golang_version }}
-      - run: go version
+
+      - name: Check the Go version
+        run: go version
+        shell: bash
