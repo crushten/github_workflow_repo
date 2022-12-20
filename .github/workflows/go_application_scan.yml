@@ -11,8 +11,8 @@ jobs:
       GO111MODULE: on
     steps:
 
-      - name: Use local action checkout
-        uses: ./.github/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@v3
 
       - name: Use local action Golang setup
         uses: ./.github/actions/go_app_setup
