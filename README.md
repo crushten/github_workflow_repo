@@ -1,8 +1,8 @@
 # Overview
 
-This repo is the central repository for all of the Github Actions and workflows for the various project I have.
+This repo is the central repository for all of the Github Actions and workflows for the various projects I have.
 
-Also servers as a reference for issue templates, labels, and git notes.
+Also serves as a reference for issue templates, labels, and git notes.
 
 ## Git Notes
 
